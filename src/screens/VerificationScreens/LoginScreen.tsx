@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,12 +11,23 @@ import {
   InputField,
   Button,
   ButtonText,
+  EyeIcon,
+  EyeOffIcon,
+  InputIcon,
+  InputSlot,
+  VStack,
 } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { StackParamList } from "../../routes/Stack.routes";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleState = () => {
+    setShowPassword((showState) => {
+      return !showState;
+    });
+  };
   type StackScreenNavigationProp = StackNavigationProp<StackParamList>;
 
   const navigation = useNavigation<StackScreenNavigationProp>();
@@ -25,8 +36,8 @@ export default function Login() {
     navigation.navigate("recoverPassword");
   };
   const navToRegister = () => {
-    navigation.navigate("register")
-  }
+    navigation.navigate("register");
+  };
   return (
     <View flex={1}>
       <Box
@@ -66,7 +77,6 @@ export default function Login() {
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
-            isRequired={true}
           >
             <FormControlLabel mb="$1" w={272}>
               <FormControlLabelText>E-mail</FormControlLabelText>
@@ -78,16 +88,24 @@ export default function Login() {
                 placeholder="E-mail@example.com"
               />
             </Input>
-            <FormControlLabel mb="$1" w={272} paddingTop={"5%"}>
-              <FormControlLabelText>Senha</FormControlLabelText>
-            </FormControlLabel>
-            <Input w={"$80"} borderColor="black" borderWidth={2}>
-              <InputField
-                type="password"
-                defaultValue=""
-                placeholder="Digite sua senha"
-              />
-            </Input>
+
+            <VStack space="xs" paddingTop={"$6"}>
+              <Text color="$text500" lineHeight="$xs">
+                Senha
+              </Text>
+              <Input alignItems="center" borderColor="black" borderWidth={2}>
+                <InputField
+                  placeholder="Senha..."
+                  type={showPassword ? "text" : "password"}
+                />
+                <InputSlot pr="$3" onPress={handleState}>
+                  <InputIcon
+                    as={showPassword ? EyeIcon : EyeOffIcon}
+                    color="$darkBlue500"
+                  />
+                </InputSlot>
+              </Input>
+            </VStack>
           </FormControl>
 
           <Box flexDirection="row" justifyContent="center">
@@ -117,7 +135,7 @@ export default function Login() {
           </Box>
 
           <Box alignItems="center">
-            <Button top={"$12"} w={"$64"} bgColor="#B0FEC0">
+            <Button top={"$12"} w={"$64"} bgColor="#B0FEC0" borderWidth={1} borderColor="black">
               <ButtonText color="black">Entrar</ButtonText>
             </Button>
           </Box>

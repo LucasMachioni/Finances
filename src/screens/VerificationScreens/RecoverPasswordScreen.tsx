@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  ImageBackground,
+  Image,
   View,
   ScrollView,
   Box,
@@ -39,12 +39,16 @@ export default function RecoverPassword() {
         alignItems="center"
         justifyContent="center"
       >
+        <Image
+                    size="md"
+                    source={require("../../../assets/coin-bag.png")}
+                    alt="Ícone de moedas"
+                  />
         <VStack>
           <Box
             bg="#dcf5e1"
             w={"90%"}
             h={"$96"}
-            paddingTop={"$10"}
             alignItems="center"
             justifyContent="flex-end"
             flexDirection="column"
@@ -67,7 +71,7 @@ export default function RecoverPassword() {
                   Digite o email cadastrado
                 </FormControlLabelText>
               </FormControlLabel>
-              <Input bgColor="$white" borderColor="$black" w={"85%"}>
+              <Input borderWidth={0.5} bgColor="$white" borderColor="$black" w={"85%"}>
                 <InputField type="password" placeholder="Email@example.com" />
               </Input>
             </Box>
