@@ -20,9 +20,21 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { StackParamList } from "../../routes/Stack.routes";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { User } from "../../interface/auth";
+import { api } from "../../api/apiConfig";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState<User>({ email: "", password: "" });
+  const [message, setMessage] = useState("");
+
+  const handleChange = (field: keyof User, value: string) => {
+    setUser((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   const handleState = () => {
     setShowPassword((showState) => {
       return !showState;
@@ -38,6 +50,35 @@ export default function Login() {
   const navToRegister = () => {
     navigation.navigate("register");
   };
+  const home = () => {
+    navigation.navigate("homeScreenAcess");
+  };
+
+  // const handleSubmit = async () => {
+  //   if (!user.email.includes("@")) {
+  //     setMessage("Insira um e-mail válido.");
+  //     return;
+  //   }
+  //   const userData = {
+  //     email: user.email,
+  //     password: user.password,
+  //   };
+
+  //   console.log("dados:", user );
+
+  //   try {
+  //     const response = await api.post("/auth/login", userData);
+
+  //     if (response.data.token != "") {
+  //       navigation.navigate("homeScreenAcess")
+  //     }
+
+  //   } catch (error) {
+  //     console.error("Erro ao logar:", error);
+  //     setMessage("Erro ao logar usuário. Tente novamente.");
+  //   }
+  // };
+
   return (
     <View flex={1}>
       <Box
@@ -86,6 +127,8 @@ export default function Login() {
                 type="text"
                 defaultValue=""
                 placeholder="E-mail@example.com"
+                onChangeText={(value) => handleChange("email", value)}
+                value={user.email}
               />
             </Input>
 
@@ -97,6 +140,8 @@ export default function Login() {
                 <InputField
                   placeholder="Senha..."
                   type={showPassword ? "text" : "password"}
+                  onChangeText={(value) => handleChange("password", value)}
+                  value={user.password}
                 />
                 <InputSlot pr="$3" onPress={handleState}>
                   <InputIcon
@@ -135,12 +180,18 @@ export default function Login() {
           </Box>
 
           <Box alignItems="center">
-            <Button top={"$12"} w={"$64"} bgColor="#B0FEC0" borderWidth={1} borderColor="black">
+            <Button
+              top={"$12"}
+              w={"$64"}
+              bgColor="#B0FEC0"
+              borderWidth={1}
+              borderColor="black"
+              onPress={home}
+            >
               <ButtonText color="black">Entrar</ButtonText>
             </Button>
           </Box>
         </Box>
       </Box>
     </View>
-  );
-}
+  )}

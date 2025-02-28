@@ -16,22 +16,21 @@ import {
   AlertText,
   InfoIcon,
   Text,
+  HStack,
 } from "@gluestack-ui/themed";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackParamList } from "../../routes/Stack.routes";
+import { RecoveryCodeInput } from "../../components/layout/RecoveryCodeInput";
 
-export default function RecoverPassword() {
+export default function RecoveryCode() {
   type StackScreenNavigationProp = StackNavigationProp<StackParamList>;
 
   const navigation = useNavigation<StackScreenNavigationProp>();
 
   const navToLogin = () => {
     navigation.navigate("login");
-  };
-  const navRecoveryCode = () => {
-    navigation.navigate("recoveryCode");
   };
 
   return (
@@ -43,7 +42,7 @@ export default function RecoverPassword() {
         alignItems="center"
         justifyContent="center"
       >
-        <Text fontStyle="italic" fontWeight={"$extrabold"} fontSize={24} color="black" marginBottom={"$6"}>Redefinição de Senha</Text>
+        <Text fontStyle="italic" fontWeight={"$extrabold"} fontSize={24} color="black" marginBottom={"$6"}>Código de Recuperação</Text>
         <VStack>
           <Box
             bg="rgb(210, 248, 210)"
@@ -65,30 +64,15 @@ export default function RecoverPassword() {
               </AlertText>
             </Alert>
 
-            <Box>
-              <FormControlLabel>
-                <FormControlLabelText color="black">
-                  Informe seu e-mail
-                </FormControlLabelText>
-              </FormControlLabel>
-              <Input
-                borderWidth={0.5}
-                bgColor="$white"
-                borderColor="$black"
-                w={"85%"}
-              >
-                <InputField type="password" placeholder="Email@example.com" />
-              </Input>
-            </Box>
+            <RecoveryCodeInput />
+
             <Button
               size="lg"
               variant="outline"
               action="primary"
               isDisabled={false}
               isFocusVisible={true}
-              borderColor="$black"
               bg="#B0FEC0"
-              onPress={navRecoveryCode}
             >
               <ButtonText color="black">Enviar </ButtonText>
               <AntDesign name="link" size={22} color="black" />
