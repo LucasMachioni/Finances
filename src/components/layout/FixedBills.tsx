@@ -7,7 +7,7 @@ interface FixedBillsProps {
   cash: number;
 }
 
-export default function FixedBills({title, cash}: FixedBillsProps) {
+export default function FixedBills({ title, cash }: FixedBillsProps) {
   return (
     <>
       <Box alignSelf="center">
@@ -29,7 +29,7 @@ export default function FixedBills({title, cash}: FixedBillsProps) {
             {title}
           </Text>
 
-            <Text top={35} left={30} color="green" fontStyle="italic" fontWeight={"$medium"}>R${cash}</Text>
+          <Text top={35} left={30} color="green" fontStyle="italic" fontWeight={"$medium"}>R${cash}</Text>
 
           <Divider
             h={1.5}
