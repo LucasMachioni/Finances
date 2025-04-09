@@ -78,37 +78,39 @@ export function Register() {
       email: user.email,
       password: user.password,
     };
-    
-    try {
 
-      const response = await api.post("/user/save",{
-        data: (userData)
+    try {
+      const response = await api.post("/user/save", {
+        data: userData,
       });
       console.log("Usuário cadastrado com sucesso:", response.data.userData);
       navigation.navigate("login");
-
     } catch (error) {
       console.error("Erro ao criar usuário:", error);
       setMessage("Erro ao criar usuário. Tente novamente.");
     }
-
   };
 
   return (
-    <View flex={1} alignItems="center" justifyContent="center" bottom={"$4"}>
+    <View
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      bottom={"$4"}
+      bg="rgb(247, 247, 247)"
+    >
       <Image
         size="md"
         source={require("../../assets/coin-bag.png")}
         alt="Ícone de moedas"
       />
       <VStack
-        bg="$green100"
+        bg="rgb(255, 255, 255)"
         alignItems="center"
         h={615}
         w={"85%"}
         top={"$6"}
         borderRadius={15}
-        borderWidth={1.5}
       >
         <Box alignItems="center">
           <Text fontWeight={"$bold"} color="black" fontSize={20} top={12}>
@@ -119,7 +121,14 @@ export function Register() {
           <FormControlLabel mb="$1" paddingTop={"$6"}>
             <FormControlLabelText>Nome</FormControlLabelText>
           </FormControlLabel>
-          <Input borderWidth={1} borderColor="black" bg="white">
+          <Input
+            borderWidth={0.5}
+            borderColor="$black"
+            borderTopWidth={0}
+            borderLeftWidth={0}
+            borderRightWidth={0}
+            bg="rgba(159, 230, 132, 0.18)"
+          >
             <InputField
               type="text"
               placeholder="Insira seu nome"
@@ -130,7 +139,14 @@ export function Register() {
           <FormControlLabel mb="$1" paddingTop={"$6"}>
             <FormControlLabelText>E-mail</FormControlLabelText>
           </FormControlLabel>
-          <Input borderWidth={1} borderColor="black" bg="white">
+          <Input
+            borderWidth={0.5}
+            borderColor="$black"
+            borderTopWidth={0}
+            borderLeftWidth={0}
+            borderRightWidth={0}
+            bg="rgba(159, 230, 132, 0.18)"
+          >
             <InputField
               type="text"
               placeholder="email@example.com"
@@ -140,7 +156,14 @@ export function Register() {
           </Input>
           <VStack space="xs" paddingTop={"$6"}>
             <FormControlLabelText>Senha</FormControlLabelText>
-            <Input alignItems="center" borderColor="black" borderWidth={1} bg="white">
+            <Input
+              borderWidth={0.5}
+              borderColor="$black"
+              borderTopWidth={0}
+              borderLeftWidth={0}
+              borderRightWidth={0}
+              bg="rgba(159, 230, 132, 0.18)"
+            >
               <InputField
                 onChangeText={(value) => handleChange("password", value)}
                 placeholder="Digite sua senha"
@@ -149,25 +172,37 @@ export function Register() {
               />
               <InputSlot pr="$3" onPress={() => setShowPassword(!showPassword)}>
                 <InputIcon
+                  size="lg"
                   as={showPassword ? EyeIcon : EyeOffIcon}
-                  color="$darkBlue500"
+                  color="rgb(44, 131, 4)"
                 />
               </InputSlot>
             </Input>
           </VStack>
           <VStack space="xs" paddingTop={"$6"}>
             <FormControlLabelText>Confirme a senha</FormControlLabelText>
-            <Input alignItems="center" borderColor="black" borderWidth={1} bg="white">
+            <Input
+              borderWidth={0.5}
+              borderColor="$black"
+              borderTopWidth={0}
+              borderLeftWidth={0}
+              borderRightWidth={0}
+              bg="rgba(159, 230, 132, 0.18)"
+            >
               <InputField
                 onChangeText={setConfirmPassword}
                 placeholder="Digite a senha novamente"
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
               />
-              <InputSlot pr="$3" onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+              <InputSlot
+                pr="$3"
+                onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
                 <InputIcon
+                  size="lg"
                   as={showConfirmPassword ? EyeIcon : EyeOffIcon}
-                  color="$darkBlue500"
+                  color="rgb(44, 131, 4)"
                 />
               </InputSlot>
             </Input>
@@ -182,8 +217,8 @@ export function Register() {
               size="sm"
               variant="solid"
               action="primary"
-              bgColor="#B0FEC0"
-              borderWidth={1}
+              bg="rgba(133, 226, 96, 0.53)"
+              borderWidth={0.3}
               borderColor="black"
               w={"$64"}
               top={"$12"}
@@ -191,13 +226,8 @@ export function Register() {
             >
               <ButtonText color="black">Cadastrar</ButtonText>
             </Button>
-            <Button
-              top={"$24"}
-              size="sm"
-              variant="link"
-              action="primary"
-            >
-              <ButtonText onPress={navToLogin}>Já possui uma conta?</ButtonText>
+            <Button top={"$24"} size="sm" variant="link" action="primary">
+              <ButtonText onPress={navToLogin} color="rgba(63, 185, 6, 0.9)">Já possui uma conta?</ButtonText>
             </Button>
           </Box>
         </FormControl>

@@ -21,18 +21,9 @@ import {
 } from "@gluestack-ui/themed";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useNavigation } from "@react-navigation/native";
-import { StackParamList } from "../routes/Stack.routes";
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export default function LoginContainer() {
-
-  type LoginScreenNavigationProp = StackNavigationProp<StackParamList>;
-
-  const navigation = useNavigation<LoginScreenNavigationProp>();
-
-  const navToRecover = () => {
-    navigation.navigate('recoverPassword');
-  };
 
   return (
     <>
@@ -136,14 +127,14 @@ export default function LoginContainer() {
             isDisabled={false}
             isFocusVisible={true}
             top={"$1/4"}
-            borderColor="$yellow300"
+            bg="rgba(133, 226, 96, 0.53)"
           >
             <ButtonText color="white">Entrar </ButtonText>
             <AntDesign name="export" size={24} color="white" />
           </Button>
         </Box>
         <HStack justifyContent="center">
-          <Button size="sm" variant="link" action="primary" isDisabled={false} isFocusVisible={false} onPress={navToRecover}>
+          <Button size="sm" variant="link" action="primary" isDisabled={false} isFocusVisible={false}>
             <ButtonText>Esqueci minha senha</ButtonText>
           </Button>
           <Text top={8} color="#4169E1"> / </Text>

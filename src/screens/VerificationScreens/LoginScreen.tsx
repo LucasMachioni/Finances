@@ -146,7 +146,7 @@ export default function Login() {
                 <InputSlot pr="$3" onPress={handleState}>
                   <InputIcon
                     as={showPassword ? EyeIcon : EyeOffIcon}
-                    color="$darkBlue500"
+                    color="rgb(44, 131, 4)"
                   />
                 </InputSlot>
               </Input>
@@ -162,8 +162,8 @@ export default function Login() {
               isFocusVisible={false}
               onPress={navToRegister}
             >
-              <ButtonText>
-                Primeiro acesso<Text color="#327CC1"> / </Text>
+              <ButtonText color="rgba(63, 185, 6, 0.9)">
+                Primeiro acesso<Text color="rgba(63, 185, 6, 0.9)"> / </Text>
               </ButtonText>
             </Button>
             <Button
@@ -175,7 +175,7 @@ export default function Login() {
               justifyContent="center"
               onPress={navToRecover}
             >
-              <ButtonText>Esqueci minha senha</ButtonText>
+              <ButtonText color="rgba(63, 185, 6, 0.9)">Esqueci minha senha</ButtonText>
             </Button>
           </Box>
 
@@ -183,7 +183,7 @@ export default function Login() {
             <Button
               top={"$12"}
               w={"$64"}
-              bgColor="#B0FEC0"
+              bg="rgba(133, 226, 96, 0.53)"
               borderWidth={1}
               borderColor="black"
               onPress={home}

@@ -42,11 +42,20 @@ export default function RecoverPassword() {
         w="100%"
         alignItems="center"
         justifyContent="center"
+        bg="rgb(247, 247, 247)"
       >
-        <Text fontStyle="italic" fontWeight={"$extrabold"} fontSize={24} color="black" marginBottom={"$6"}>Redefinição de Senha</Text>
+        <Text
+          fontStyle="italic"
+          fontWeight={"$extrabold"}
+          fontSize={24}
+          color="black"
+          marginBottom={"$6"}
+        >
+          Redefinição de Senha
+        </Text>
         <VStack>
           <Box
-            bg="rgb(210, 248, 210)"
+            bg="rgb(255, 255, 255)"
             w={"90%"}
             h={"$96"}
             alignItems="center"
@@ -57,7 +66,7 @@ export default function RecoverPassword() {
             padding={4}
             paddingBottom={"$16"}
           >
-            <Alert mx="$2.5" action="info" variant="accent" borderRadius={8}>
+            <Alert mx="$2.5" action="success" variant="outline" borderRadius={8}>
               <AlertIcon as={InfoIcon} mr="$3" />
               <AlertText>
                 Informe seu e-mail para enviarmos um link de recuperação de
@@ -73,11 +82,14 @@ export default function RecoverPassword() {
               </FormControlLabel>
               <Input
                 borderWidth={0.5}
-                bgColor="$white"
                 borderColor="$black"
                 w={"85%"}
+                borderTopWidth={0}
+                borderLeftWidth={0}
+                borderRightWidth={0}
+                bg="rgba(159, 230, 132, 0.18)"
               >
-                <InputField type="password" placeholder="Email@example.com" />
+                <InputField type="text" placeholder="Email@example.com" />
               </Input>
             </Box>
             <Button
@@ -87,10 +99,11 @@ export default function RecoverPassword() {
               isDisabled={false}
               isFocusVisible={true}
               borderColor="$black"
-              bg="#B0FEC0"
+              bg="rgba(133, 226, 96, 0.53)"
+              borderWidth={0.5}
               onPress={navRecoveryCode}
             >
-              <ButtonText color="black">Enviar </ButtonText>
+              <ButtonText fontWeight={"$medium"} color="black">Enviar </ButtonText>
               <AntDesign name="link" size={22} color="black" />
             </Button>
           </Box>
@@ -102,7 +115,7 @@ export default function RecoverPassword() {
             isFocusVisible={false}
             onPress={navToLogin}
           >
-            <ButtonText>Lembrei minha senha!</ButtonText>
+            <ButtonText color="rgba(63, 185, 6, 0.9)">Lembrei minha senha!</ButtonText>
           </Button>
         </VStack>
       </View>
