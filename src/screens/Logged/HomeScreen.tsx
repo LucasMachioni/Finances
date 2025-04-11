@@ -1,96 +1,168 @@
-import {
-  Box,
-  VStack,
-  Text,
-  ScrollView,
-  Center,
-  Divider,
-  HStack,
-} from "@gluestack-ui/themed";
+import React, { useState } from "react";
 import { View } from "react-native";
-import { User } from "../../interface/auth";
-import { useEffect, useState } from "react";
-import { api } from "../../api/apiConfig";
-import BASE_URL from "../../api/baseURL";
-import FixedBills from "../../components/layout/FixedBills";
+import {
+  VStack,
+  Avatar,
+  AvatarFallbackText,
+  Button,
+  ButtonText,
+  Center,
+  Input,
+  InputField,
+  Modal,
+  ModalBackdrop,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Heading,
+  Icon,
+  CloseIcon,
+  Text,
+  Box,
+  HStack,
+  Pressable,
+} from "@gluestack-ui/themed";
+import { useMoneyFlow } from "../../contexts/MoneyFlowContext";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 export default function HomeScreen() {
-  const [user, setUser] = useState<User>({ email: "", password: "", name: "" });
+  const { addItem, maskDate } = useMoneyFlow();
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+  const [date, setDate] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
 
-  useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const response = await api.get(`${BASE_URL}user/id?userId`);
-        setUser(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar dados do usuário", error);
-      }
+  const handleAdd = () => {
+    if (description && value && date) {
+      addItem({
+        description,
+        value: parseFloat(value),
+        date,
+        type: "gastos",
+      });
+
+      setDescription("");
+      setValue("");
+      setDate("");
+      setShowModal(false);
+    } else {
+      alert("Por favor, preencha todos os campos!");
     }
+  };
 
-    fetchUserData();
-  }, []);
+  const changeName = () => {
+    
+  }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, alignItems: "center" }}>
+      <Box
+        position="absolute"
+        top={-400}
+        width={600}
+        height={570}
+        bg="rgba(132, 232, 107, 0.35)"
+        borderRadius="$full"
+      />
+
       <VStack
         alignItems="center"
         justifyContent="center"
-        bg="rgba(119, 255, 0, 0.36)"
         w={"$full"}
         h={160}
         paddingTop={"$12"}
       >
-        <Box
-          w={"$20"}
-          h={"$20"}
-          bg="white"
-          borderRadius={40}
-          alignItems="center"
-          justifyContent="center"
-        ></Box>
-        <VStack py={"$4"}>
-          <Text fontSize={24} color="black">
-            {user.name}
-          </Text>
-        </VStack>
+        <Avatar bgColor="$green" size="xl" borderRadius="$full">
+          <AvatarFallbackText>Lucas M</AvatarFallbackText>
+        </Avatar>
       </VStack>
-      <ScrollView bg="rgb(255, 255, 255)" style={{ flexGrow: 1, paddingBottom: 100 }}>
-        <Box marginTop={"$16"} alignItems="center">
-          <Center alignItems="flex-start" marginRight={"45%"}>
-            <Text fontSize={20}>Saldo atual:</Text>
-          </Center>
-          <Divider my="$3" w={"$72"} bgColor="black" />
-          <Center alignItems="flex-start" marginRight={"40%"}>
-            <Text fontSize={19}>Saldo restante:</Text>
-          </Center>
-          <Divider my="$3" w={"$72"} bgColor="black" />
 
+      <VStack
+        w={"85%"}
+        h={"15%"}
+        paddingTop={"$2"}
+        bg="$trueGray200"
+        borderRadius={15}
+        elevation={20}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <HStack gap={10}>
+          <Text marginBottom={15} fontWeight={"$bold"} fontSize={20}>
+            Lucas Machioni
+          </Text>
 
-          <Text top={"$6"} marginTop={"$12"} fontSize={24} fontStyle="italic" fontWeight={"$extrabold"} color="black">Contas Fixas</Text>
-          <VStack
-            w={"80%"}
-            minHeight={"$48"}
-            bg="#272726"
-            justifyContent="center"
-            alignItems="center"
-            borderRadius={20}
-            gap={30}
-            padding={20}
-            marginTop={"$10"}
-          >
-            <FixedBills title={"Conta de energia"} cash={10} />
-            <FixedBills title={"Conta de luz"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-            <FixedBills title={"Conta de água"} cash={50} />
-          </VStack>
-        </Box>
-        <View style={{ height: 150 }} />
-      </ScrollView>
+          <Pressable marginTop={"$1"}>
+            <FontAwesome6 name="pencil" size={17} color="rgba(45, 146, 25, 0.99)" />
+          </Pressable>
+        </HStack>
+
+        <HStack
+          borderWidth={0.5}
+          borderColor="$coolGray400"
+          minWidth={170}
+          h={50}
+          bg="$coolGray300"
+          alignItems="center"
+          borderRadius={8}
+          padding={"$2"}
+        >
+          <Text>Saldo Atual: </Text>
+          <Text>R$ 999.999,00</Text>
+        </HStack>
+      </VStack>
+
+      <Center mt="$4">
+        <Button onPress={() => setShowModal(true)}>
+          <ButtonText>Adicionar</ButtonText>
+        </Button>
+
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <ModalBackdrop />
+          <ModalContent>
+            <ModalHeader>
+              <Heading size="lg">Adicionar Item</Heading>
+              <ModalCloseButton>
+                <Icon as={CloseIcon} />
+              </ModalCloseButton>
+            </ModalHeader>
+
+            <ModalBody>
+              <Input mb="$2">
+                <InputField
+                  placeholder="Data (dd/mm/aaaa)"
+                  keyboardType="numeric"
+                  value={date}
+                  onChangeText={(text) => setDate(maskDate(text))}
+                />
+              </Input>
+
+              <Input mb="$2">
+                <InputField
+                  placeholder="Valor"
+                  keyboardType="numeric"
+                  value={value}
+                  onChangeText={setValue}
+                />
+              </Input>
+
+              <Input mb="$2">
+                <InputField
+                  placeholder="Descrição"
+                  value={description}
+                  onChangeText={setDescription}
+                />
+              </Input>
+
+              <Button onPress={handleAdd} mt="$2">
+                <Text color="$white">Adicionar</Text>
+              </Button>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Center>
     </View>
   );
 }
